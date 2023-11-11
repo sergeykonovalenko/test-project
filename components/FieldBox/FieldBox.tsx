@@ -155,4 +155,6 @@ const FieldBox = forwardRef(
   }
 );
 
+FieldBox.displayName = 'FieldBox';
+
 export default FieldBox;
