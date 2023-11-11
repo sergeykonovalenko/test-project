@@ -9,7 +9,8 @@ import {
   useState,
 } from 'react';
 import { FieldBoxProps } from '@/components/FieldBox/FieldBox.props';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { FieldError } from 'react-hook-form';
 
 const Parent = styled.div`
   position: relative;
@@ -146,7 +147,9 @@ const FieldBox = forwardRef(
         {fieldRightElement && (
           <FieldRightElement>{fieldRightElement}</FieldRightElement>
         )}
-        {error && <Error>{error.message}</Error>}
+        {error && typeof error === 'object' && (
+          <Error>{(error as FieldError).message}</Error>
+        )}
       </Parent>
     );
   }

@@ -1,5 +1,11 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  FieldError,
+  FieldErrorsImpl,
+  FieldValues,
+  Merge,
+  UseFormRegister,
+} from 'react-hook-form';
 import { TFormSchema } from '@/components/MealReviewPage/MealReviewPage';
 
 export interface ComponentReviewItemProps
@@ -7,7 +13,9 @@ export interface ComponentReviewItemProps
   image: string;
   title: string;
   rating: number;
-  fieldName: keyof TFormSchema;
+  // fieldName: keyof TFormSchema;
+  // fieldName: Extract<keyof TFormSchema, string>;
+  fieldName: string;
   register: UseFormRegister<FieldValues>;
-  error: FieldError;
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }

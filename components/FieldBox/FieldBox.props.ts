@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactElement } from 'react';
-import { FieldError } from 'react-hook-form';
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
 export interface FieldBoxProps
   extends DetailedHTMLProps<
@@ -7,7 +7,7 @@ export interface FieldBoxProps
     HTMLInputElement
   > {
   label?: string;
-  error?: FieldError;
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
   asTag?: string;
   fieldRightElement?: ReactElement;
 }

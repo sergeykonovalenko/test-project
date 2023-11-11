@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactElement } from 'react';
-import { FieldError } from 'react-hook-form';
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
 export interface CheckboxProps
   extends DetailedHTMLProps<
@@ -7,5 +7,5 @@ export interface CheckboxProps
     HTMLInputElement
   > {
   label?: ReactElement | string;
-  error?: FieldError;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }

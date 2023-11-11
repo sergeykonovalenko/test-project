@@ -1,8 +1,14 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  FieldError,
+  FieldErrorsImpl,
+  FieldValues,
+  Merge,
+  UseFormRegister,
+} from 'react-hook-form';
 
 export interface MealReviewProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   register: UseFormRegister<FieldValues>;
-  error: FieldError;
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }
