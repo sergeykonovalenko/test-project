@@ -8,6 +8,4 @@ export interface ComponentReviewListProps
     HTMLUListElement
   > {
   components: IComponent[];
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
 }

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
-import { ComponentReviewItemProps } from '@/components/ComponentReviewItem/СomponentReviewItem.props';
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
+import { ComponentReviewItemProps } from '@/components/ComponentReviewItem/СomponentReviewItem.props';
 import Component from '@/components/Сomponent/Component';
 import FieldBox from '@/components/FieldBox/FieldBox';
 
@@ -16,11 +17,14 @@ const ComponentReviewItem = ({
   title,
   image,
   rating,
-  register,
-  error,
   fieldName,
   ...props
 }: ComponentReviewItemProps): ReactElement => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <Item {...props}>
       <Component title={title} image={image} rating={rating} />
@@ -28,7 +32,7 @@ const ComponentReviewItem = ({
         <FieldBox
           label="Your thoughts about the component"
           {...register(fieldName)}
-          error={error}
+          error={errors[fieldName]}
         />
       </RightCol>
     </Item>

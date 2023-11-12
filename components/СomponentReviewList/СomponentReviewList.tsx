@@ -19,8 +19,7 @@ const StyledComponentReviewItem = styled(ComponentReviewItem)`
 
 const ComponentReviewList = ({
   components,
-  register,
-  errors,
+
   ...props
 }: ComponentReviewListProps): ReactElement => {
   return (
@@ -32,8 +31,6 @@ const ComponentReviewList = ({
           image={component.image}
           rating={component.rating}
           fieldName={`reviewComponent${index + 1}`}
-          register={register}
-          error={errors[`reviewComponent${index + 1}`]}
         />
       ))}
     </List>

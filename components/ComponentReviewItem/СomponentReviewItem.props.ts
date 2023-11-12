@@ -16,6 +16,4 @@ export interface ComponentReviewItemProps
   // fieldName: keyof TFormSchema;
   // fieldName: Extract<keyof TFormSchema, string>;
   fieldName: string;
-  register: UseFormRegister<FieldValues>;
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }

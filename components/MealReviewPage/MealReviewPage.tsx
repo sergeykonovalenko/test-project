@@ -2,7 +2,12 @@
 
 import { ReactElement, useState } from 'react';
 import { z } from 'zod';
-import { SubmitHandler, SubmitErrorHandler, useForm } from 'react-hook-form';
+import {
+  SubmitHandler,
+  SubmitErrorHandler,
+  useForm,
+  FormProvider,
+} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import styled from 'styled-components';
 import Container from '@/components/Container/Container';
@@ -79,16 +84,10 @@ const MealReviewPage = ({ ...props }: MealReviewPageProps): ReactElement => {
     setIsShowModalConfirm(false);
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({
+  const methods = useForm({
     resolver: zodResolver(formSchema),
     mode: 'all',
   });
-
-  console.log('errors', errors);
 
   const onSubmit: SubmitHandler<Partial<TFormSchema>> = (data) => {
     showModalConfirm();
@@ -103,30 +102,32 @@ const MealReviewPage = ({ ...props }: MealReviewPageProps): ReactElement => {
     <>
       <Container {...props}>
         <Title>MealReview</Title>
-        <Form onSubmit={handleSubmit(onSubmit, onErrorSubmit)}>
-          <MealComponents register={register} errors={errors} />
-          <MealReview register={register} error={errors.reviewMeal} />
-          <NameFieldBox
-            {...register('userName')}
-            error={errors.userName}
-            label="Your Nickname (other users will see this)"
-            fieldRightElement={
-              <EditIcon widht={24} height={24} fill="#34a34f" />
-            }
-          />
-          <AgreementCheckbox
-            {...register('agreement')}
-            error={errors.agreement}
-            label={
-              <>
-                I confirm that I have read and accepted{' '}
-                <a href="#">Terms and Conditions</a> and{' '}
-                <a href="#">Privacy Policy</a>
-              </>
-            }
-          />
-          <SubmitButton type="submit">Submit Review</SubmitButton>
-        </Form>
+        <FormProvider {...methods}>
+          <Form onSubmit={methods.handleSubmit(onSubmit, onErrorSubmit)}>
+            <MealComponents />
+            <MealReview />
+            <NameFieldBox
+              {...methods.register('userName')}
+              error={methods.formState.errors.userName}
+              label="Your Nickname (other users will see this)"
+              fieldRightElement={
+                <EditIcon widht={24} height={24} fill="#34a34f" />
+              }
+            />
+            <AgreementCheckbox
+              {...methods.register('agreement')}
+              error={methods.formState.errors.agreement}
+              label={
+                <>
+                  I confirm that I have read and accepted{' '}
+                  <a href="#">Terms and Conditions</a> and{' '}
+                  <a href="#">Privacy Policy</a>
+                </>
+              }
+            />
+            <SubmitButton type="submit">Submit Review</SubmitButton>
+          </Form>
+        </FormProvider>
       </Container>
       {isShowModalConfirm && (
         <ModalConfirm isOpen={isShowModalConfirm} onClose={hideModalConfirm} />

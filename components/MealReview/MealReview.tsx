@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import { MealReviewProps } from '@/components/MealReview/MealReview.props';
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
+import { MealReviewProps } from '@/components/MealReview/MealReview.props';
 import FieldBox from '@/components/FieldBox/FieldBox';
 import MealCard from '@/components/MealCard/MealCard';
-import EditIcon from '@/public/img/icons/edit.svg';
 
 const Parent = styled.div`
   margin-bottom: 150px;
@@ -29,11 +29,12 @@ const TextareaFieldBox = styled(FieldBox)`
   }
 `;
 
-const MealReview = ({
-  register,
-  error,
-  ...props
-}: MealReviewProps): ReactElement => {
+const MealReview = ({ ...props }: MealReviewProps): ReactElement => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <Parent {...props}>
       <Title>Meal Review</Title>
@@ -45,7 +46,7 @@ const MealReview = ({
         />
         <TextareaFieldBox
           {...register('reviewMeal')}
-          error={error}
+          error={errors.reviewMeal}
           label="Meal Summary Review"
           asTag="textarea"
         />

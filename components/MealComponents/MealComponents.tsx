@@ -18,23 +18,13 @@ const Title = styled.h2`
   line-height: 1.25;
 `;
 
-const MealComponents = ({
-  register,
-  errors,
-  ...props
-}: MealComponentsProps): ReactElement => {
+const MealComponents = ({ ...props }: MealComponentsProps): ReactElement => {
   const components = useComponents((state) => state.components);
 
   return (
     <Parent {...props}>
       <Title>Meal Components</Title>
-      {components.length > 0 && (
-        <СomponentReviewList
-          components={components}
-          register={register}
-          errors={errors}
-        />
-      )}
+      {components.length > 0 && <СomponentReviewList components={components} />}
     </Parent>
   );
 };
