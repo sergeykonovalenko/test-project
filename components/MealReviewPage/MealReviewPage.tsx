@@ -86,7 +86,7 @@ const MealReviewPage = ({ ...props }: MealReviewPageProps): ReactElement => {
 
   const methods = useForm({
     resolver: zodResolver(formSchema),
-    mode: 'all',
+    mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<Partial<TFormSchema>> = (data) => {
