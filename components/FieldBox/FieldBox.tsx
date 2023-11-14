@@ -11,6 +11,7 @@ import {
 import { FieldBoxProps } from '@/components/FieldBox/FieldBox.props';
 import styled from 'styled-components';
 import { FieldError } from 'react-hook-form';
+import { mergeRefs } from 'react-merge-refs';
 
 const Parent = styled.div`
   position: relative;
@@ -104,18 +105,6 @@ const FieldBox = forwardRef(
     const [filled, setFilled] = useState<Boolean>(false);
     const innerRef = useRef<HTMLInputElement | null>(null);
 
-    // Create a ref that includes both innerRef and forwardedRef
-    const combinedRef = (node: HTMLInputElement) => {
-      innerRef.current = node;
-
-      // Assign to forwardedRef, depending on its type
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(node);
-      } else if (forwardedRef && typeof forwardedRef === 'object') {
-        forwardedRef.current = node;
-      }
-    };
-
     useEffect(() => {
       setFilled(innerRef.current?.value !== '');
     }, []);
@@ -138,7 +127,7 @@ const FieldBox = forwardRef(
       >
         <Input
           {...props}
-          ref={combinedRef}
+          ref={mergeRefs([innerRef, forwardedRef])}
           onBlur={handleBlur}
           onChange={handleChange}
           as={asTag}
